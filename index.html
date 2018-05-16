@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>3-4</title>
     <script src="./index.js"></script>
 </head>
 <body>
@@ -14,6 +14,9 @@
         <ul>
            <todoitem :content="item" :index="index" @delete="childitemdelete"  v-for="(item,index) in list"></todoitem>
         </ul>
+        <div v-text="name_text"></div>
+        <div v-html="name_html"></div>
+        <div :tit="name_text"></div>
     </div>
     <script>
         // 创建子组件
@@ -33,7 +36,9 @@
             data () {
                 return {
                     list:[],
-                    inputval:''
+                    inputval:'',
+                    name_text:"xiaoli",
+                    name_html:"<h3>xiaoli</h3>"
                 }
             },
             // 生命周期钩子
