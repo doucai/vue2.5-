@@ -20,12 +20,15 @@
 
         <!-- ref引用 -->
         <div ref="hello" @click="handleClick">hello word</div>
-
-        <adds></adds>
+        <!-- $emit需要把事件绑定在子组件上面 -->
+        <adds @change="handleChange" ref="one"></adds>
+        <adds @change="handleChange" ref="two"></adds>
+        <div >{{totle}}</div>
     </div>
     <script>
         // 创建子组件
         Vue.component("row",{
+         
             template:"<tr><td>{{msg}}</td></tr>",
             data () {
                 return {
@@ -45,6 +48,8 @@
             methods:{
                 add(){
                     this.num++
+                    //$emit需要把事件绑定在子组件上面
+                    this.$emit("change")
                 }
             }
                 
@@ -52,10 +57,19 @@
 
         var app = new Vue({
             el:"#app",
+            data(){
+                return{
+                    totle:0
+                   
+                }
+            },
             methods: {
                 handleClick(){
                     // $refs可以获取所有引用ref的dom，hello为dom中引用ref属性的值
                     console.log(this.$refs.hello.innerHTML)
+                },
+                handleChange(){
+                    this.totle=this.$refs.one.num+this.$refs.two.num
                 }
             }
 
