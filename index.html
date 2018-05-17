@@ -17,6 +17,7 @@
         <div v-text="name_text"></div>
         <div v-html="name_html"></div>
         <div :tit="name_text"></div>
+        <div>{{fullName}}+{{fullName2}}</div>
     </div>
     <script>
         // 创建子组件
@@ -38,41 +39,11 @@
                     list:[],
                     inputval:'',
                     name_text:"xiaoli",
-                    name_html:"<h3>xiaoli</h3>"
+                    name_html:"<h3>xiaoli</h3>",
+                    firstName:"dell",
+                    lastName:"lee",
+                    fullName:"dell lee",
                 }
-            },
-            // 生命周期钩子
-            // 组件创建之前
-            beforeCreate () {
-                console.log("beforeCreate")
-            },
-            // 组件创建之前结束
-            created () {
-              console.log("created")  
-            },
-            // 模板渲染之前
-            beforeMount () {
-              console.log("beforeMount")  
-            },
-            // 模板渲染结束
-            mounted () {
-              console.log("mounted")  
-            },
-            // 数据跟新之前
-            beforeUpdate () {
-                console.log("beforeUpdate")  
-            },
-            // 数据跟新之后
-            updated () {
-                console.log("updated")  
-            },
-            // 组件销毁之前
-            beforeDestroy () {
-                console.log("beforeDestroy") 
-            },
-            // 组建销毁后
-            destroyed () {
-                console.log("destroyed") 
             },
             methods: {
                 btn(){
@@ -82,9 +53,27 @@
                 childitemdelete(index){
                     this.list.splice(index,1)
                 }
-                
             },
-           
+            watch: {
+              inputval:function(){
+                  this.fullName = this.inputval+this.lastName
+              },  
+              lastName:function(){
+                  this.fullName = this.firstName+this.lastName
+              }
+            },
+           computed:{
+               fullName2:{
+                    get:function(){
+                        return this.firstName+this.lastName
+                    },
+                    set:function(val){
+                        var arr=val.split(" ");
+                        this.firstName=arr[0]
+                    }
+               }
+           }
+          
         })
     </script>
 </body>
