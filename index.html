@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>3-4</title>
     <script src="./index.js"></script>
+    <style>
+        .isred{color: red}
+    </style>
 </head>
 <body>
     <div id="app">
@@ -18,6 +21,18 @@
         <div v-html="name_html"></div>
         <div :tit="name_text"></div>
         <div>{{fullName}}+{{fullName2}}</div>
+        <div @click="handledivclick" :class="{isred:istrue}" :style="styleobj">hello word</div>
+
+        <div v-if="istrue">{{msg}}</div>
+        <div v-else>{{msg2}}</div>
+        <div v-show="istrue">{{msg3}}</div>
+
+        <!-- 对象循环 -->
+        <!-- template占位符在页面是不显示的，可以做包裹元素使用 -->
+        <template v-for="(item ,key ,index) of userinfo">
+            <div>{{item}}--{{key}}</div>
+            <span>{{key}}--{{item}}</span>
+        </template>
     </div>
     <script>
         // 创建子组件
@@ -43,18 +58,42 @@
                     firstName:"dell",
                     lastName:"lee",
                     fullName:"dell lee",
+                    istrue:false,
+                    styleobj:{
+                        color:'red'
+                    },
+                    msg:'条件渲染',
+                    msg2:"msg2",
+                    msg3:"show",
+                    userinfo:{
+                        name:"lsis",
+                        age:18,
+                        sex:"nv"
+                    }
                 }
             },
             methods: {
                 btn(){
+                    // 通过vue.set 方法添加数据，第一个是被添加的，第二个是你想要添加什么值，可以跟多个值以“，”分隔
+                    Vue.set(this.userinfo,this.inputval)
+                    /* 若vue.set修改的是数组，则第二个参数是下标，第三个是要改的值
+                    eg:Vue.set(arr,1,10):将arr的下标为一的值改为10 */
+                    
                     this.list.push(this.inputval)
                     this.inputval=""
+                    
                 },
                 childitemdelete(index){
                     this.list.splice(index,1)
+                },
+                handledivclick(){
+                    this.istrue=!this.istrue
+                    
                 }
+                
             },
             watch: {
+                // 监听inputval
               inputval:function(){
                   this.fullName = this.inputval+this.lastName
               },  
@@ -72,6 +111,7 @@
                         this.firstName=arr[0]
                     }
                }
+               
            }
           
         })
