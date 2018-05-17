@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./index.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table>
+            <tbody>
+                <!-- is占位符可以解决 ul li ol 等部分bug -->
+                <tr is="row"></tr>
+                <tr is="row"></tr>
+                <tr is="row"></tr>
+            </tbody>
+        </table>
+
+        <!-- ref引用 -->
+        <div ref="hello" @click="handleClick">hello word</div>
+
+        <adds></adds>
+    </div>
+    <script>
+        // 创建子组件
+        Vue.component("row",{
+            template:"<tr><td>{{msg}}</td></tr>",
+            data () {
+                return {
+                    msg:"this is a row"
+                }
+            }
+                
+        })
+
+        Vue.component("adds",{
+            template:'<div @click="add">{{num}}</div>',
+            data () {
+                return {
+                    num:0
+                }
+            },
+            methods:{
+                add(){
+                    this.num++
+                }
+            }
+                
+        })
+
+        var app = new Vue({
+            el:"#app",
+            methods: {
+                handleClick(){
+                    // $refs可以获取所有引用ref的dom，hello为dom中引用ref属性的值
+                    console.log(this.$refs.hello.innerHTML)
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>
