@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./index.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- props -->
+        <counter :count="3" @change="handleChange"></counter>
+        <counter :count="2" @change="handleChange"></counter>
+        <!-- $emit -->
+        <div>{{totle}}</div>
+    </div>
+    <script>
+        // 创建子组件
+        var counter = {
+            props: ['count'],
+            // 通过在子组件中从新赋值可以解决从父组件中接收过来的值的修改而不报错，若直接修改父组件传过来的值会报错
+            data () {
+                return {
+                    num:this.count
+                }
+            },
+            template:'<div @click="handleClick">{{num}}</div>',
+            methods: {
+                handleClick(){
+                   this.num=this.num+2
+                   //$emit中事件后可以跟多个参数
+                   this.$emit('change',2)
+                }
+            }
+        }
+
+        var app = new Vue({
+            el:"#app",
+            // 跟组件可以不使用函数
+            data:{
+                totle:5
+            },
+            methods:{
+                handleChange(data){
+                    this.totle+=data
+                }
+            },
+           components: {
+            counter
+           }
+        })
+    </script>
+</body>
+</html>
