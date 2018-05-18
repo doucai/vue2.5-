@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="./index.js"></script>
+    <style>
+        .fade-enter{
+            opacity: 0;
+        }
+        .fade-enter-active{
+            transition: opacity  1s;
+        }
+        .fade-leave{
+            opacity:1;
+        }
+        .fade-leave-active{
+            transition: 1s;
+            opacity:0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+       <transition name="fade" mode="">
+            <div v-if="isshow">hello word</div>
+       </transition>
+       <button @click="btn">点击</button>
+    </div>
+    <script>
+        var app =new Vue({
+            el:"#app",
+            data () {
+                return {
+                isshow:true      
+                }
+            },
+            methods: {
+                btn(){  
+                    this.isshow=!this.isshow
+                }
+            }
+        })
+    </script>
+</body>
+</html>
