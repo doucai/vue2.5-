@@ -20,27 +20,33 @@
        <!-- mode多个元素动画过度效果in-out out-in -->
         <transition mode="out-in">
                 <!-- 加key值解决多元素之间动画过度问题,若不加则没有 -->
-                <div v-if="show" key="hello">hello word</div>
-                <div v-else key="bye">bye bye</div>
+                <!-- <div v-if="show" key="hello">hello word</div>
+                <div v-else key="bye">bye bye</div> -->
+                <component :is="type"></component>
         </transition>
         <button @click="btn">toggle</button>
     </div>
     <script>
+        Vue.component('child',{
+            template:'<div>dell</div>'
+        })
+        Vue.component('child2',{
+            template:'<div>lee</div>'
+        })
         var app = new Vue({
             el:"#app",
             data () {
                 return {
-                    show:true,
+                    type:'child',
                 }
             },
             methods: {
                 btn(){
-                    this.show=!this.show
+                    this.type=this.type==='child'?'child2':'child';
                 }
             }
           
         })
     </script>
-    <!-- 这里是个人在velocity.js官网看到的演示，http://www.mrfront.com/docs/velocity.js/vuejs.html -->
 </body>
 </html>
