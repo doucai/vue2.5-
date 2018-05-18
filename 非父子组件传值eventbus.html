@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>eventbus,观察者模式</title>
+    <script src="./index.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child content="dell"></child>
+        <child content="lee"></child>
+    </div>
+    <script>
+        // 全局挂载bus
+        Vue.prototype.bus=new Vue()
+
+        Vue.component("child",{
+            props: ['content'],
+            data () {
+                return {
+                    contents:this.content
+                }
+            },
+            template:'<div @click="handleclick">{{contents}}</div>',
+            methods: {
+                handleclick(){
+                    this.bus.$emit("change",this.contents)
+                }
+            },
+           mounted () {
+            var that=this;
+            // 模板挂在时$on监听chang事件
+            this.bus.$on('change',function(msg){
+                that.contents=msg
+            })
+           }
+        })
+
+        var app =new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>
