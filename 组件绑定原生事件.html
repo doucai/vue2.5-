@@ -8,10 +8,38 @@
     <script src="./index.js"></script>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <child @childclick2='childClick3'></child>
+
+        <!-- 监听原生点击事件，在事件绑定后加native即可 -->
+        <child2 @click.native="childClick"></child2>
+    </div>
     <script>
+        Vue.component('child',{
+            // 原生事件
+            template:'<div @click="childclick">child</div>',
+            methods: {
+                childclick:function(){
+                    // 此处不支持驼峰命名法
+                    this.$emit('childclick2')
+                }
+            }
+        })
+
+        Vue.component('child2',{
+            // 原生事件
+            template:'<div >child</div>',
+        })
         var app = new Vue({
             el:"#app",
+            methods:{
+                childClick3:function(){
+                    alert(2)
+                },
+                childClick(){
+                    alert('原生事件')
+                }
+            }
         })
     </script>
 </body>
