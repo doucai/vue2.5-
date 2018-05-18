@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="./index.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child>
+            <!-- 作用域插槽必须是在template标签里面 
+            ·通过slot-scope接收值    
+            -->
+            <template slot-scope="props">
+                <p>{{props.item}}</p>
+            </template>
+        </child>
+        
+    </div>
+    <script>
+      
+        Vue.component("child",{
+            data () {
+                return {
+                list:[1,2,3,4]      
+                }
+            },
+            template:`<div>
+                        <slot v-for="item of list" :item="item"></slot>
+                     </div>`
+        })
+
+        var app =new Vue({
+            el:"#app",
+        })
+    </script>
+</body>
+</html>
