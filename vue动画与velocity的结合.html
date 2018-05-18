@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./velocity.js"></script>
+    <script src="./index.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--@before-enter动画进入之前  
+            @enter动画进入
+            @after-enter动画结束后 
+            @before-leave
+            @leave
+            @after-leave
+        -->
+        <transition name="fade" @before-enter="beforeEnter" @enter="handleEnter" @after-enter="afterEnetr">
+                <div v-show="show">hello word</div>
+        </transition>
+        <button @click="btn">toggle</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data () {
+                return {
+                    show:true,
+                }
+            },
+           /*  methods: {
+                btn(){
+                    this.show=!this.show
+                },
+                beforeEnter(el){
+                    el.style.color="red"
+                },
+                handleEnter(el,done){
+                    // done()表示动画结束
+                    setTimeout(function(){
+                        el.style.color="green"
+                        done()
+                    },2000)
+                },
+                afterEnetr(el){
+                    el.style.color="black"
+                }
+            } */
+            methods: {
+                btn(){
+                    this.show=!this.show
+                },
+                beforeEnter(el){
+                    el.style.opacity=0
+                },
+                handleEnter(el,done){
+                   Velocity(el,
+                   {opacity:1},
+                   {duration:1000,
+                    complete:done
+                    })
+                },
+                afterEnetr(el){
+                   alert("over")
+                }
+            }
+        })
+    </script>
+    <!-- 这里是个人在velocity.js官网看到的演示，http://www.mrfront.com/docs/velocity.js/vuejs.html -->
+</body>
+</html>
