@@ -4,15 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
+    <title>eventbus,观察者模式</title>
     <script src="./index.js"></script>
 </head>
 <body>
     <div id="app">
-       
+        <child>
+            
+          <div class="header" slot="header">header</div>
+          <div class="footer" slot="footer">footer</div>
+        </child>
+        
     </div>
     <script>
-        
+      
+        Vue.component("child",{
+            template:`<div>
+                        <slot name="header">默认内容</slot>
+                        <div>hello</div>
+                        <slot name="footer">默认内容</slot>
+                     </div>`
+        })
 
         var app =new Vue({
             el:"#app",
