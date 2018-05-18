@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./index.js"></script>
+    <style>
+        .v-enter,.v-leave{
+            opacity: 0;
+        }
+        .v-enter-active,.v-leave-active{
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <!-- mode多个元素动画过度效果in-out out-in -->
+        <transition mode="out-in">
+                <!-- 加key值解决多元素之间动画过度问题,若不加则没有 -->
+                <div v-if="show" key="hello">hello word</div>
+                <div v-else key="bye">bye bye</div>
+        </transition>
+        <button @click="btn">toggle</button>
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data () {
+                return {
+                    show:true,
+                }
+            },
+            methods: {
+                btn(){
+                    this.show=!this.show
+                }
+            }
+          
+        })
+    </script>
+    <!-- 这里是个人在velocity.js官网看到的演示，http://www.mrfront.com/docs/velocity.js/vuejs.html -->
+</body>
+</html>
