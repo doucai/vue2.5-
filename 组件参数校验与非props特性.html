@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="./index.js"></script>
+    <style>
+        body{background: #000;color: #fff;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- child中的cont值是在cont上直接定义的无需v-bind绑定 -->
+       <child cont="conts is a"></child>
+       <!-- child2中的cont对应的是父组件的值，所以需要用v-bind绑定 -->
+       <child2 :cont="conts"></child2>
+    </div>
+    <script>
+        Vue.component('child',{
+            // props特性
+            props: {
+                // 类型检测String Number 
+                // cont:String
+                // cont:[String,Number]
+                cont:{
+                    type:String,
+                    // require为true表示cont属性是必须要传的
+                    required:false,
+                    // default默认值,require为false时可用
+                    default:"default value",
+                    // validator表示传入的内容必须大于活小于几
+                    validator:function(val){
+                        return(val.length > 5 )
+                    }
+                }
+            },
+            template:'<div>{{cont}}</div>'
+        })
+
+        Vue.component('child2',{
+            // props特性
+            props:['cont'],
+            template:'<div>{{cont}}</div>'
+        })
+        var app =new Vue({
+            el:"#app",
+            data () {
+                return {
+                    conts:"我是父组件的val"
+                }
+            }
+        })
+    </script>
+</body>
+</html>
