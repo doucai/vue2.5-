@@ -9,31 +9,35 @@
 </head>
 <body>
     <div id="app">
-        <child>
-            <!-- 作用域插槽必须是在template标签里面 
-            ·通过slot-scope接收值    
-            -->
-            <template slot-scope="props">
-                <p>{{props.item}}</p>
-            </template>
-        </child>
-        
+        <!-- 动态指令：is -->
+        <!-- <component :is="type"></component> -->
+        <child1 v-if="type === 'child1'"></child1>
+        <child2 v-if="type === 'child2'"></child2>
+        <button @click="btn">change</button>
     </div>
     <script>
       
-        Vue.component("child",{
-            data () {
-                return {
-                list:[1,2,3,4]      
-                }
-            },
-            template:`<div>
-                        <slot v-for="item of list" :item="item"></slot>
-                     </div>`
+        Vue.component("child1",{
+            // v-once可以有效提高静态内容的效率
+            template:`<div v-once>1</div>`
+        })
+
+        Vue.component("child2",{
+            template:`<div v-once>2</div>`
         })
 
         var app =new Vue({
             el:"#app",
+            data () {
+                return {
+                    type:'child1'
+                }
+            },
+            methods: {
+                btn(){
+                    this.type=this.type==='child1'?'child2':'child1'
+                }
+            }
         })
     </script>
 </body>
