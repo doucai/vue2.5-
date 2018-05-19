@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" href="./animate.css">
+    <script src="./index.js"></script>
+    <style>
+        .fade-enter,.fade-enter-to{
+            opacity: 0;
+        }
+        .fade-active-enter,.fade-active-leaver{
+            transition: opacity 3s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"> 
+        <!-- appear入场动画  appear-active-class 固定搭配不可更改 
+            type="transition"表示动画时长已transition为动画时长
+        -->
+       <transition name="fade"  appear enter-active-class="animated swing"  leave-active-class="animated swing" appear-active-class="animated swing">
+            <div v-if="isshow">hello word</div>
+       </transition>
+       <button @click="btn">点击</button>
+    </div>
+    <script>
+        var app =new Vue({
+            el:"#app",
+            data () {
+                return {
+                isshow:true      
+                }
+            },
+            methods: {
+                btn(){  
+                    this.isshow=!this.isshow
+                }
+            }
+        })
+    </script>
+</body>
+</html>
