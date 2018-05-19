@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./index.js"></script>
+    <style>
+        .v-enter,.v-leave{
+            opacity: 0;
+        }
+        .v-enter-active,.v-leave-active{
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- transition-group相当于再每一个div外层添加一个transition,用于列表过度动画 -->
+       <transition-group tag="" name="">
+            <div v-for="(item ,index) of list" :key="item.id">{{item.tit}}</div>
+       </transition-group>
+        <button @click="btn">add</button>
+    </div>
+    <script>
+       var count=0;
+        var app = new Vue({
+            el:"#app",
+            data () {
+                return {
+                    list:[]
+                }
+            },
+            methods: {
+                btn:function(){
+                    this.list.push({
+                        id:count++,
+                        tit:'hello word'
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
