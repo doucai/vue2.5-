@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./index.js"></script>
+    <style>
+        .v-enter,.v-leave{
+            opacity: 0;
+        }
+        .v-enter-active,.v-leave-active{
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        
+        <fade :show="show">
+            <div>hello word</div>
+        </fade>
+        <fade :show="!show">
+                <h2>hello </h2>
+            </fade>
+        <button @click="btn">add</button>
+    </div>
+    <script>
+        Vue.component('fade',{
+            props: ['show'],
+            // 此处需要用v-if
+            template:`<transition @before-enter="beforeEnter" @enter="enter">
+                        <slot v-if="show"></slot>
+                    </transition>`,
+            methods:{
+                beforeEnter(el){
+                    setTimeout(function(){
+                    el.style.color="red"
+                    },1000)
+                },
+                enter(el,done){
+                    el.style.color="green"
+                    done()
+                }
+            }
+        })
+        var app = new Vue({
+            el:"#app",
+            data () {
+                return {
+                    show:true
+                }
+            },
+            methods:{
+                btn:function(){
+                 this.show=!this.show
+                }
+            }
+        })
+    </script>
+</body>
+</html>
