@@ -1,0 +1,79 @@
+<template>
+  <div id="app">
+    <div class="wrap">
+      <ul class="scrollDiv" 
+      style="position: absolute; 
+  transition: top 0.5s;">
+        <li>1123123132131313213132131</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6123123132nihao</li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'App',
+  mounted () {
+    this.srcollWrap()
+  },
+  methods: {
+    srcollWrap(){
+      let scrollDivHeight = document.getElementsByClassName("scrollDiv")[0].offsetHeight
+      let scrollPx=0;
+      let num = scrollDivHeight/60
+        setInterval(function(){
+          scrollPx++
+          if(scrollPx < num){
+            document.getElementsByClassName("scrollDiv")[0].style.top=-60*scrollPx+'px'
+          }else{
+            document.getElementsByClassName("scrollDiv")[0].style.top=0
+            scrollPx=0
+          }          
+        },1000)
+    }
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+ul,li{
+  list-style: none;
+}
+img{
+  display: block;
+  border: 0;
+}
+a{
+  text-decoration: none;
+}
+.wrap{
+  width: 300px;
+  height: 60px;
+  overflow: hidden;
+  position: relative;
+}
+/* .wrap .scrollDiv{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+} */
+.wrap .scrollDiv li{
+  width:  60px;
+  line-height: 60px;
+  font-size: 36px;
+  text-align: center;
+    word-break:break-all;
+}
+</style>
