@@ -1,0 +1,62 @@
+<div id="vdrag" v-drag>       <!--实现用指令形式实现拖拽效果-->
+        
+ </div>
+<script>
+directives: {
+        drag: {
+            // 指令的定义
+            bind: function (el) {
+                let that=this
+                let odiv = el;   //获取当前元素
+                odiv.onmousedown = (e) => {
+                  // 阻止默认行为
+                    e.preventDefault()
+                    e = e || window.event;
+                    //当鼠标按下的时候,获得鼠标在盒子中的位置
+                    //鼠标在盒子中的位置=鼠标在页面中的位置-盒子在页面的位置
+                    //鼠标在页面中的位置
+                    var x=e.pageX || e.clientX + (document.body.scrollLeft || document.documentElement.scrollLeft);
+                    var y=e.pageY || e.clientY + (document.body.scrollTop || document.documentElement.scrollTop);
+                    //盒子在页面中的位置
+                    var box_x=odiv.offsetLeft;
+                    var box_y=odiv.offsetTop;
+                    //鼠标在盒子中的位置
+                    var mouse_in_box_x=x-box_x;
+                    var mouse_in_box_y=y-box_y;
+                    
+                    document.onmousemove = (e)=>{
+                        e = e || window.event;
+                    //鼠标在页面中移动时,求盒子的坐标
+                    //鼠标移动时盒子移动位置=鼠标当前位置-鼠标在盒子中移动的距离
+                     x=e.pageX || e.clientX + (document.body.scrollLeft || document.documentElement.scrollLeft);
+                     y=e.pageY || e.clientY + (document.body.scrollTop || document.documentElement.scrollTop);
+                    var boxX=x-mouse_in_box_x;
+                    var boxY=y-mouse_in_box_y;
+                    //px一定不能忘
+                    odiv.style.left=boxX+'px';
+                    odiv.style.top=boxY+'px';
+                
+                    };
+                    document.onmouseup = (e) => {
+                        document.onmousemove = null;
+                        document.onmouseup = null;
+                    };
+                };
+            }
+        }
+    }
+</script>
+<style >
+#vdrag{
+        position: absolute;     /*定位*/
+        top: 10%;
+        left: 30%;
+        width: 200px;
+        height: 200px;
+        background: #666;       /*设置一下背景*/
+        z-index: 999;
+}
+</style>
+
+
+
