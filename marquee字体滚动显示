@@ -1,0 +1,20 @@
+marquee 参数：
+BGColor：滚动文本框的背景颜色。
+Direction：滚动方向设置，可选择Left、Right、up和down。
+scrolldelay：每轮滚动之间的延迟时间，越大越慢。
+scrollamount：一次滚动总的时间量，数字越小滚动越慢。
+Behaviour：滚动的方式设置，三种取值：Scroll（循环滚动） lide（单次滚动）、Alternate（来回滚动）。
+Align：文字的对齐方式设置。可选择Middle(居中)、Bottom(居下)还是Top(居上)。
+Width：滚动文本框的宽度，输入一个数值后从后面的单选框选择in Pixels(按像素)或是in Percent(按百分比)。
+Height：滚动文本框的高度，输入一个数值后从后面的单选框选择in Pixels(按像素)或是in Percent(按百分比)。
+loop：滚动次数。默认为infinite
+hspace、vspace：前后、上下的空行。
+onMouseOver='this.stop()' 鼠标放上去则暂停
+onMouseOut='this.start()' 鼠标移开继续滚动
+
+
+
+<marquee v-show="ListArr[7].type == 'content'?true:false" class="marquee" scrollamount="2" direction="up" onMouseOver="this.stop()"
+    onMouseOut="this.start()">
+    {{ListArr[7].content}}
+</marquee>
